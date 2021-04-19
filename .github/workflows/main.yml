@@ -40,7 +40,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ${{ env.TMPDIR }}
-          key: tmp-${{ hashFiles(format('{0}/*', env.TMPDIR)) }}
+          key: tmp-${{ hashFiles(format('{0}/**', env.TMPDIR)) }}
           restore-keys: tmp-
 
       - run: mix deps.get
