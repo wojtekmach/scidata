@@ -31,17 +31,17 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: /tmp/scidata
-          key: tmp7-${{ hashFiles('/tmp/scidata/*.gz') }}
-          restore-keys: tmp7-
+          key: tmp8-${{ hashFiles('/tmp/scidata/*') }}
+          # restore-keys: tmp7-
 
-      - uses: actions/cache@v2
-        with:
-          path: |
-            deps
-            _build
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-mix-
+      # - uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       deps
+      #       _build
+      #     key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-mix-
 
       - run: mix deps.get
 
