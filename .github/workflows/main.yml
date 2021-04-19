@@ -52,8 +52,8 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: /tmp/scidata
-          key: tmp5-${{ hashFiles('/tmp/scidata/*') }}
-          restore-keys: tmp5-
+          key: tmp6-${{ hashFiles('/tmp/scidata/*.gz') }}
+          restore-keys: tmp6-
 
       - run: echo /tmp/scidata/*
 
