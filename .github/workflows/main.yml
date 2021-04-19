@@ -55,6 +55,10 @@ jobs:
           key: tmp2-${{ hashFiles('tmp/*') }}
           restore-keys: tmp2-
 
+      - run: echo tmp/*
+
+      - run: echo "${{ hashFiles('tmp/*') }}"
+
       - run: mkdir -p tmp
 
       - run: ls -la tmp
