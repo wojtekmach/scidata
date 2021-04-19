@@ -52,7 +52,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: tmp
-          key: tmp-${{ hashFiles('tmp/*') }}
+          key: tmp-${{ hashFiles('tmp/**') }}
           restore-keys: tmp-
 
       - run: mkdir -p tmp
