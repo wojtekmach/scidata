@@ -51,9 +51,9 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: tmp
-          key: tmp2-${{ hashFiles('tmp/*') }}
-          restore-keys: tmp2-
+          path: ~/tmp
+          key: tmp3-${{ hashFiles('~/tmp/*') }}
+          restore-keys: tmp3-
 
       - run: echo tmp/*
 
