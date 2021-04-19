@@ -52,17 +52,17 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/tmp
-          key: tmp3-${{ hashFiles('~/tmp/*') }}
-          restore-keys: tmp3-
+          key: tmp4-${{ hashFiles('~/tmp/*') }}
+          restore-keys: tmp4-
 
-      - run: echo tmp/*
+      - run: echo ~/tmp/*
 
       - run: echo "${{ hashFiles('tmp/*') }}"
 
-      - run: mkdir -p tmp
+      - run: mkdir -p ~/tmp
 
-      - run: ls -la tmp
+      - run: ls -la ~/tmp
 
       - run: mix test
         env:
-          TMPDIR: tmp
+          TMPDIR: ~/tmp
