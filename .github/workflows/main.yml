@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MIX_ENV: test
-      TMPDIR: /tmp/scidata
     strategy:
       fail-fast: false
       matrix:
@@ -37,14 +36,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-mix-
 
-      - uses: actions/cache@v2
-        with:
-          path: ${{ env.TMPDIR }}
-          key: tmp-${{ hashFiles('/tmp/scidata/*') }}
-          restore-keys: tmp-
-
-      - run: ls -l /tmp/scidata
-
       - run: mix deps.get
 
       - run: mix format --check-formatted
@@ -58,6 +49,14 @@ jobs:
       - run: mix compile --warnings-as-errors
         if: ${{ matrix.lint }}
 
-      - run: mkdir -p $TMPDIR
+      - uses: actions/cache@v2
+        with:
+          path: tmp
+          key: tmp-${{ hashFiles('tmp/*') }}
+          restore-keys: tmp-
+
+      - run: mkdir -p tmp
 
       - run: mix test
+        env:
+          TMPDIR: tmp
