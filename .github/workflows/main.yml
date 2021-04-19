@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    # branches:
+    #   - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      MIX_ENV: test
+      TMPDIR: /tmp/scidata
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - pair:
+              elixir: 1.11
+              otp: 23.3
+            lint: lint
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: erlef/setup-elixir@v1.7
+        with:
+          otp-version: ${{matrix.pair.otp}}
+          elixir-version: ${{matrix.pair.elixir}}
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ env.TMPDIR }}
+          key: tmp-${{ hashFiles(format('{0}/*', env.TMPDIR) }}
+          restore-keys: tmp-
+
+      - run: mix deps.get
+
+      - run: mix format --check-formatted
+        if: ${{ matrix.lint }}
+
+      - run: mix deps.unlock --check-unused
+        if: ${{ matrix.lint }}
+
+      - run: mix deps.compile
+
+      - run: mix compile --warnings-as-errors
+        if: ${{ matrix.lint }}
+
+      - run: mkdir -p $TMPDIR
+
+      - run: mix test
