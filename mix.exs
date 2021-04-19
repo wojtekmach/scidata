@@ -19,7 +19,6 @@ defmodule Scidata.MixProject do
       # Docs
       name: "Scidata",
       docs: docs()
-
     ]
   end
 
