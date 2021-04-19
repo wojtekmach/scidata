@@ -61,7 +61,6 @@ jobs:
 
       - run: ls -la /tmp/scidata
 
-
       - run: mix test
         env:
           TMPDIR: /tmp/scidata
