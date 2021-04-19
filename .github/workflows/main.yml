@@ -43,6 +43,8 @@ jobs:
           key: tmp-${{ hashFiles('/tmp/scidata/*') }}
           restore-keys: tmp-
 
+      - run: ls -l /tmp/scidata
+
       - run: mix deps.get
 
       - run: mix format --check-formatted
