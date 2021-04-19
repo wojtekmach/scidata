@@ -27,6 +27,13 @@ jobs:
           otp-version: ${{matrix.pair.otp}}
           elixir-version: ${{matrix.pair.elixir}}
 
+
+      - uses: actions/cache@v2
+        with:
+          path: /tmp/scidata
+          key: tmp7-${{ hashFiles('/tmp/scidata/*.gz') }}
+          restore-keys: tmp7-
+
       - uses: actions/cache@v2
         with:
           path: |
@@ -48,12 +55,6 @@ jobs:
 
       - run: mix compile --warnings-as-errors
         if: ${{ matrix.lint }}
-
-      - uses: actions/cache@v2
-        with:
-          path: /tmp/scidata
-          key: tmp6-${{ hashFiles('/tmp/scidata/*.gz') }}
-          restore-keys: tmp6-
 
       - run: echo /tmp/scidata/*
 
