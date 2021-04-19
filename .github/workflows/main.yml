@@ -51,18 +51,16 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: ~/tmp
-          key: tmp4-${{ hashFiles('~/tmp/*') }}
-          restore-keys: tmp4-
+          path: /tmp/scidata
+          key: tmp5-${{ hashFiles('/tmp/scidata/*') }}
+          restore-keys: tmp5-
 
-      - run: echo ~/tmp/*
+      - run: echo /tmp/scidata/*
 
-      - run: echo "${{ hashFiles('tmp/*') }}"
+      - run: mkdir -p /tmp/scidata
 
-      - run: mkdir -p ~/tmp
-
-      - run: ls -la ~/tmp
+      - run: ls -la /tmp/scidata
 
       - run: mix test
         env:
-          TMPDIR: ~/tmp
+          TMPDIR: /tmp/scidata
