@@ -57,6 +57,8 @@ jobs:
 
       - run: mkdir -p tmp
 
+      - run: ls -la tmp
+
       - run: mix test
         env:
           TMPDIR: tmp

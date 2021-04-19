@@ -75,7 +75,8 @@ defmodule Scidata.Utils do
     path = cache_path(request)
 
     if response.status == 304 do
-      # Logger.debug(["loading cached ", path])
+      require Logger
+      Logger.debug(["loading cached ", path])
       response = %{response | body: File.read!(path)}
       {request, response}
     else
